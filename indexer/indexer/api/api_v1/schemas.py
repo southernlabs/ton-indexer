@@ -537,6 +537,7 @@ class JettonMaster(BaseModel):
     jetton_content: Any
     code_hash: str
     data_hash: str
+    found_at_lt: str
 
     @classmethod
     def from_orm(cls, obj):
@@ -548,7 +549,8 @@ class JettonMaster(BaseModel):
                             jetton_wallet_code_hash=obj.jetton_wallet_code_hash,
                             jetton_content=obj.jetton_content,
                             code_hash=hash_type(obj.code_hash),
-                            data_hash=hash_type(obj.data_hash),)
+                            data_hash=hash_type(obj.data_hash),
+                            found_at_lt= obj.found_at_lt)
 
 class JettonMasterList(BaseModel):
     jetton_masters: List[JettonMaster]

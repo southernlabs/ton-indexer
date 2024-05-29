@@ -355,6 +355,7 @@ class JettonMaster(Base):
     last_transaction_lt = Column(BigInteger)
     code_boc = Column(String)
     data_boc = Column(String)
+    found_at_lt = Column(BigInteger)
 
 
 class JettonTransfer(Base):
