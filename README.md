@@ -24,10 +24,12 @@ Requirements:
   * Worker: 4 CPU, 32 GB RAM, SSD recommended (for archival: 8 CPUs, 64 GB RAM, SSD recommended).
 
 Do the following steps to setup TON Indexer:
-* Clone repository: `git clone --recursive --branch cpp-indexer https://github.com/kdimentionaltree/ton-indexer`.
-* Create *.env* file with command `./configure.sh`.
+* Clone repository: `git clone --recursive https://github.com/southernlabs/ton-indexer`.
+* Create *.env* file with command `./configure.sh `.
   * Run `./configure.sh --worker` to configure TON Index worker.
 * Adjust parameters in *.env* file (see [list of available parameters](#available-parameters)).
+  * Set postgres password in file `echo "postgres" > private/postgres_password`.
+  * If you don't run archive node - set `TON_WORKER_FROM=` equals latest seqno from masterchain [find it here](https://tonviewer.com/last).
 * Build docker images: `docker compose build postgres alembic index-api`.
 * Run stack: `docker compose up -d postgres alembic index-api`.
   * To start worker use command `docker compose up -d index-worker` after creating all services.
@@ -66,3 +68,8 @@ Do the following steps to setup TON Indexer:
 ## How to update code
 * Pull new commits: `git pull`.
 * Update submodules: `git submodule update --recursive --init`.
+
+## How to check alembic logs
+* `docker ps -a | grep alembic`.
+* `docker logs 12f6e40b50e5` - your container id.
+* If your alembic fails - its likely you have skipped some step or misconfigured env. Do not run postgres without password in `private/postgres_password` file!
